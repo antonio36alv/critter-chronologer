@@ -1,2 +1,2 @@
-package com.udacity.jdnd.course3.critter.pet;public class PetServiceImpl {
+package com.udacity.jdnd.course3.critter.pet;public interface PetServiceImpl {
 }
