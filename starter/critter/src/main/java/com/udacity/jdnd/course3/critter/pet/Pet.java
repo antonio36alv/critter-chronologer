@@ -2,18 +2,16 @@ package com.udacity.jdnd.course3.critter.pet;
 
 import com.udacity.jdnd.course3.critter.user.Customer;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Entity
-@NoArgsConstructor
-@RequiredArgsConstructor
+//@NoArgsConstructor
+//@RequiredArgsConstructor
 public class Pet {
 
     @Id
@@ -22,22 +20,23 @@ public class Pet {
 
     @Column(length = 50)
     @NotNull
-    private String type;
+    private PetType type;
 
     @Nationalized
     @Column(length = 50)
     @NotNull
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    @NotNull
-    private Customer customer;
+//    @ManyToOne
+//    @JoinColumn(name = "customer_id")
+//    private Customer customer;
+//    @NotNull
     // many to one with owner referenced by owner id
 
     @NotNull
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
 
     @Column(length = 500)
     private String notes;
+
 }
