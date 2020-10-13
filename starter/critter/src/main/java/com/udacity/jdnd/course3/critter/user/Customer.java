@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-@NoArgsConstructor
-@RequiredArgsConstructor
+//@NoArgsConstructor
+//@RequiredArgsConstructor
 public class Customer extends User {
 
     @NotNull

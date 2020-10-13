@@ -13,8 +13,8 @@ will change as I see fit
  */
 @MappedSuperclass
 @Data
-@NoArgsConstructor
-@RequiredArgsConstructor
+//@NoArgsConstructor
+//@RequiredArgsConstructor
 public class User {
 
     @Id
