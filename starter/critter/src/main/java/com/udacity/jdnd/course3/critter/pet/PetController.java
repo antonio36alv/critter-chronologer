@@ -26,7 +26,7 @@ public class PetController {
     }
 
     @GetMapping("/{petId}")
-    public PetDTO getPet(@PathVariable long petId) throws PetNotFoundException {
+    public PetDTO getPet(@PathVariable long petId) {
         return convertPet(petService.findById(petId));
     }
 
