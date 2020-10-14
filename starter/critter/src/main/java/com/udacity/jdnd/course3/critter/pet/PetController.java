@@ -43,7 +43,8 @@ public class PetController {
 
     @GetMapping("/owner/{ownerId}")
     public List<PetDTO> getPetsByOwner(@PathVariable long ownerId) {
-        throw new UnsupportedOperationException();
+        List<Pet> petList = petService.findAllByCustomerId(ownerId);
+        return convertToDTOList(petList);
     }
 
     private Pet convertDTO(PetDTO dto) {
