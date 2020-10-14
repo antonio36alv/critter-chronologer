@@ -12,7 +12,7 @@ public class PetServiceImpl implements PetService{
     private PetRepository petRepository;
 
     @Override
-    public Pet findById(Long id) throws PetNotFoundException {
+    public Pet findById(Long id) {
         // TODO create not found exception
         Optional<Pet> petOptional = Optional.ofNullable(petRepository.findById(id).orElseThrow(PetNotFoundException::new));
         return petOptional.get();
