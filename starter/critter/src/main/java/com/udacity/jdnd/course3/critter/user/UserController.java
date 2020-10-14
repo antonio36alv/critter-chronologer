@@ -1,5 +1,7 @@
 package com.udacity.jdnd.course3.critter.user;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
@@ -16,9 +18,14 @@ import java.util.Set;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    private CustomerServiceImpl customerService;
+    private EmployeeServiceImpl employeeService;
+
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-        throw new UnsupportedOperationException();
+        Customer customer = convertCustomerDTO(customerDTO);
+        return convertCustomer(customerService.save(customer));
     }
 
     @GetMapping("/customer")
@@ -49,6 +56,30 @@ public class UserController {
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
         throw new UnsupportedOperationException();
+    }
+
+    private Customer convertCustomerDTO(CustomerDTO dto) {
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(dto, customer);
+        return customer;
+    }
+
+    private CustomerDTO convertCustomer(Customer customer) {
+        CustomerDTO dto = new CustomerDTO();
+        BeanUtils.copyProperties(customer, dto);
+        return dto;
+    }
+
+    private Employee convertEmployeeDTO(EmployeeDTO dto) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(dto, employee);
+        return employee;
+    }
+
+    private EmployeeDTO convertEmployee(Employee employee) {
+        EmployeeDTO dto = new EmployeeDTO();
+        BeanUtils.copyProperties(employee, dto);
+        return dto;
     }
 
 }
