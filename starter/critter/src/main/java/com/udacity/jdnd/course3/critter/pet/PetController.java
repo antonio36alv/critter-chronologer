@@ -32,36 +32,43 @@ public class PetController {
 
     @GetMapping("/{petId}")
     public PetDTO getPet(@PathVariable long petId) {
+        // send pet id to findById method within petService
+        // then convert the pet into a pet dto
         return convertPet(petService.findById(petId));
     }
 
     @GetMapping
     public List<PetDTO> getPets(){
-        List<Pet> petList = petService.findAll();
-        return convertToDTOList(petList);
+        return convertToDTOList(petService.findAll());
     }
 
     @GetMapping("/owner/{ownerId}")
     public List<PetDTO> getPetsByOwner(@PathVariable long ownerId) {
-        List<Pet> petList = petService.findAllByCustomerId(ownerId);
-        return convertToDTOList(petList);
+        return convertToDTOList(petService.findAllByCustomerId(ownerId));
     }
-
+    /**
+    Pet DTO -> Pet Entity
+     */
     private Pet convertDTO(PetDTO dto) {
         Pet pet = new Pet();
         BeanUtils.copyProperties(dto, pet);
-        // use owner id from dto to find customer, then set that exact customer
+        // use owner id from dto to find customer, then set customer id
+        // with that owner id
         pet.setCustomer(customerService.findById(dto.getOwnerId()));
         return pet;
     }
-
+    /**
+    Pet Entity -> Pet DTO
+     */
     private PetDTO convertPet(Pet pet) {
         PetDTO dto = new PetDTO();
         BeanUtils.copyProperties(pet, dto);
+        // use customer id from pet to find customer, then set owner id
+        // with that customer id
         dto.setOwnerId(pet.getCustomer().getId());
         return dto;
     }
-    /*
+    /**
     Takes a list of pets and converts it to a list of petDTOs
     with the help of the convertPet method above
      */
