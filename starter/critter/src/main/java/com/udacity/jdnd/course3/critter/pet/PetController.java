@@ -5,6 +5,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public class PetController {
 
     @Autowired
     private PetServiceImpl petService;
+
     @Autowired
     private CustomerServiceImpl customerService;
 
@@ -35,7 +37,8 @@ public class PetController {
 
     @GetMapping
     public List<PetDTO> getPets(){
-        throw new UnsupportedOperationException();
+        List<Pet> petList = petService.findAll();
+        return convertToDTOList(petList);
     }
 
     @GetMapping("/owner/{ownerId}")
@@ -56,5 +59,16 @@ public class PetController {
         BeanUtils.copyProperties(pet, dto);
         dto.setOwnerId(pet.getCustomer().getId());
         return dto;
+    }
+    /*
+    Takes a list of pets and converts it to a list of petDTOs
+    with the help of the convertPet method above
+     */
+    public List<PetDTO> convertToDTOList(List<Pet> petList) {
+        List<PetDTO> petDTOList = new ArrayList<>();
+        for(Pet pet : petList) {
+            petDTOList.add(convertPet(pet));
+        }
+        return petDTOList;
     }
 }
