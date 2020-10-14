@@ -8,10 +8,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Data
-@Entity
 //@NoArgsConstructor
 //@RequiredArgsConstructor
+@Entity
+@Data
 public class Pet {
 
     @Id
@@ -27,10 +27,10 @@ public class Pet {
     @NotNull
     private String name;
 
-//    @ManyToOne
-//    @JoinColumn(name = "customer_id")
-//    private Customer customer;
-//    @NotNull
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
     // many to one with owner referenced by owner id
 
     @NotNull
