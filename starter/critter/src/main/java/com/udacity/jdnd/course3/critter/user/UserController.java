@@ -29,23 +29,12 @@ public class UserController {
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-        return convertCustomer(customerService.save(convertCustomerDTO(customerDTO)));
+        return customerService.save(customerDTO);
     }
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
-        List<Customer> customerList = customerService.findAll();
-        List<CustomerDTO> dtoList = convertToCustomerDTOList(customerList);
-
-            for(int x = 0; x < dtoList.size(); x++) {
-                List<Long> petIds = new ArrayList<>();
-                for(Pet pet : customerList.get(x).getPets()) {
-                    petIds.add(pet.getId());
-                }
-                dtoList.get(x).setPetIds(petIds);
-            }
-
-        return dtoList;
+        return customerService.findAll();
     }
 
     @GetMapping("/customer/pet/{petId}")

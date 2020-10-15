@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface CustomerService {
 
-    Customer findById(Long id);
+    CustomerDTO findById(Long id);
 
-    List<Customer> findAll();
+    List<CustomerDTO> findAll();
 
-    Customer save(Customer customer);
+    CustomerDTO save(CustomerDTO customerDTO);
 
 }
