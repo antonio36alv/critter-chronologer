@@ -8,13 +8,14 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
 //@NoArgsConstructor
 public class Employee extends User {
 
-    @ElementCollection(targetClass = String.class)
-    private List<String> skills;
+    @ElementCollection(targetClass = EmployeeSkill.class)
+    private Set<EmployeeSkill> skills;
 
 }
