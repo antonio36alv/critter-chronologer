@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface PetService {
 
-    Pet findById(long id);
+    PetDTO findById(long id);
 
-    List<Pet> findAll();
+    List<PetDTO> findAll();
 
-    List<Pet> findAllByCustomerId(long customerId);
+    List<PetDTO> findAllByCustomerId(long customerId);
 
-    Pet save(Pet pet);
+    PetDTO save(PetDTO petDTO);
 }

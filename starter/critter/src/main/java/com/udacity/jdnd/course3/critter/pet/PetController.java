@@ -25,33 +25,40 @@ public class PetController {
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
         // convert dto to a pet
-        Pet pet = convertDTO(petDTO);
+//        Pet pet = convertDTO(petDTO);
         // get the customer by the ownerId passed in through petDto
-        Customer customer = customerService.findById(petDTO.getOwnerId());
+//        Customer customer = customerService.findById(petDTO.getOwnerId());
         // set the pets customer as the pet found
-        pet.setCustomer(customer);
+//        pet.setCustomer(customer);
 //        pet.setCustomer(customerService.findById(petDTO.getOwnerId()));
-
         // save the pet using pet service
         // convert the returned pet into dto for response
-        return convertPet(petService.save(pet));
+//        return convertPet(petService.save(pet));
+        // goal
+         return petService.save(petDTO);
     }
 
     @GetMapping("/{petId}")
     public PetDTO getPet(@PathVariable long petId) {
         // send pet id to findById method within petService
         // then convert the pet into a pet dto
-        return convertPet(petService.findById(petId));
+//        return convertPet(petService.findById(petId));
+        // goal
+         return petService.findById(petId);
     }
 
     @GetMapping
     public List<PetDTO> getPets(){
-        return convertToDTOList(petService.findAll());
+//        return convertToDTOList(petService.findAll());
+        // goal
+         return petService.findAll();
     }
 
     @GetMapping("/owner/{ownerId}")
     public List<PetDTO> getPetsByOwner(@PathVariable long ownerId) {
-        return convertToDTOList(petService.findAllByCustomerId(ownerId));
+//        return convertToDTOList(petService.findAllByCustomerId(ownerId));
+        // goal
+         return petService.findAllByCustomerId(ownerId);
     }
 
 }

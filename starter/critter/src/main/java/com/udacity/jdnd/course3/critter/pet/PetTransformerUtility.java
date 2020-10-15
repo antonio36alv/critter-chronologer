@@ -1,29 +1,33 @@
 package com.udacity.jdnd.course3.critter.pet;
 
+import com.udacity.jdnd.course3.critter.user.Customer;
 import lombok.experimental.UtilityClass;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@UtilityClass
-public class PetTransformerUtility {
+//@UtilityClass
+@Component
+final class PetTransformerUtility {
+
+//    private PetTransformerUtility() {
+//        throw new UnsupportedOperationException();
+//    }
 
     /**
      Pet DTO -> Pet Entity
      */
-    private Pet convertDTO(PetDTO dto) {
+    public Pet petDTOtoPetEntity(PetDTO dto) {
         Pet pet = new Pet();
         BeanUtils.copyProperties(dto, pet);
-        // use owner id from dto to find customer, then set customer id
-        // with that owner id
-        pet.setCustomer(customerService.findById(dto.getOwnerId()));
         return pet;
     }
     /**
      Pet Entity -> Pet DTO
      */
-    private PetDTO convertPet(Pet pet) {
+    public PetDTO petEntityToPetDTO(Pet pet) {
         PetDTO dto = new PetDTO();
         BeanUtils.copyProperties(pet, dto);
         // use customer id from pet to find customer, then set owner id
@@ -32,15 +36,17 @@ public class PetTransformerUtility {
         return dto;
     }
     /**
+     *
+     List of Pets -> List of Pet DTOs
      Takes a list of pets and converts it to a list of petDTOs
      with the help of the convertPet method above
      */
-    public List<PetDTO> convertToDTOList(List<Pet> petList) {
-        List<PetDTO> petDTOList = new ArrayList<>();
+    public List<PetDTO> convertToPetDTOList(List<Pet> petList) {
+        List<PetDTO> dtoList = new ArrayList<>();
         for(Pet pet : petList) {
-            petDTOList.add(convertPet(pet));
+            dtoList.add(petEntityToPetDTO(pet));
         }
-        return petDTOList;
+        return dtoList;
     }
 
 }
