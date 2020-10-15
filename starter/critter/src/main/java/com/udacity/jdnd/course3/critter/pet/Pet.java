@@ -27,7 +27,7 @@ public class Pet {
     @NotNull
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @NotNull
     @JoinColumn(name = "customer_id")
     private Customer customer;
