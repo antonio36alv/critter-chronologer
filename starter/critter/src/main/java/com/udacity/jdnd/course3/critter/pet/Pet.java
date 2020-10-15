@@ -31,9 +31,7 @@ public class Pet {
     @NotNull
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    // many to one with owner referenced by owner id
 
-    @NotNull
     private LocalDate birthDate;
 
     @Column(length = 500)
