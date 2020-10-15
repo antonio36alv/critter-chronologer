@@ -1,25 +1,21 @@
 package com.udacity.jdnd.course3.critter.user;
 
-import com.udacity.jdnd.course3.critter.user.Customer;
-import com.udacity.jdnd.course3.critter.user.CustomerDTO;
-import com.udacity.jdnd.course3.critter.user.Employee;
-import com.udacity.jdnd.course3.critter.user.EmployeeDTO;
-import lombok.experimental.UtilityClass;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@UtilityClass
-public class UserTransformerUtility {
+@Component
+public final class UserTransformerUtility {
 
-    private Customer convertCustomerDTO(CustomerDTO dto) {
+    public Customer customerDTOtoCustomerEntity(CustomerDTO dto) {
         Customer customer = new Customer();
         BeanUtils.copyProperties(dto, customer);
         return customer;
     }
 
-    private CustomerDTO convertCustomer(Customer customer) {
+    public CustomerDTO customerEntityToCustomerDTO(Customer customer) {
         CustomerDTO dto = new CustomerDTO();
         BeanUtils.copyProperties(customer, dto);
         // to set dto petIds I need a list of Long
@@ -27,30 +23,30 @@ public class UserTransformerUtility {
         return dto;
     }
 
-    private List<CustomerDTO> convertToCustomerDTOList(List<Customer> customerList) {
+    public List<CustomerDTO> convertToCustomerDTOList(List<Customer> customerList) {
         List<CustomerDTO> dtoList = new ArrayList<>();
         for(Customer customer : customerList) {
-            dtoList.add(convertCustomer(customer));
+            dtoList.add(customerEntityToCustomerDTO(customer));
         }
         return dtoList;
     }
 
-    private Employee convertEmployeeDTO(EmployeeDTO dto) {
+    public Employee employeeDTOtoEmployeeEntity(EmployeeDTO dto) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(dto, employee);
         return employee;
     }
 
-    private EmployeeDTO convertEmployee(Employee employee) {
+    public EmployeeDTO employeeEntityToEmployeeDTO(Employee employee) {
         EmployeeDTO dto = new EmployeeDTO();
         BeanUtils.copyProperties(employee, dto);
         return dto;
     }
 
-    private List<EmployeeDTO> convertToEmployeeList(List<Employee> employeeList) {
+    public List<EmployeeDTO> convertToEmployeeDTOList(List<Employee> employeeList) {
         List<EmployeeDTO> dtoList = new ArrayList<>();
         for(Employee employee : employeeList) {
-            dtoList.add(convertEmployee(employee));
+            dtoList.add(employeeEntityToEmployeeDTO(employee));
         }
         return dtoList;
     }
