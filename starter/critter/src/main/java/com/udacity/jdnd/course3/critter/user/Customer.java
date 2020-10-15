@@ -18,6 +18,9 @@ public class Customer extends User {
     @NotNull
     private String phoneNumber;
 
+    @Column(length = 500)
+    private String notes;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Pet> pets;
 
