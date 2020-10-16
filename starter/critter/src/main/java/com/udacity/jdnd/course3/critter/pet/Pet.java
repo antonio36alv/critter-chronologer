@@ -1,5 +1,6 @@
 package com.udacity.jdnd.course3.critter.pet;
 
+import com.udacity.jdnd.course3.critter.schedule.Schedule;
 import com.udacity.jdnd.course3.critter.user.Customer;
 import lombok.Data;
 import org.hibernate.annotations.Nationalized;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.Nationalized;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 //@NoArgsConstructor
 //@RequiredArgsConstructor
@@ -36,5 +38,8 @@ public class Pet {
 
     @Column(length = 500)
     private String notes;
+
+    @OneToMany(mappedBy = "pet")
+    private List<Schedule> schedule;
 
 }
