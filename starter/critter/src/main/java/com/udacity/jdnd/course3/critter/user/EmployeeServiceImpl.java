@@ -21,7 +21,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDTO findById(long employeeId) {
-        Optional<Employee> employeeOptional = Optional.ofNullable(employeeRepository.findById(employeeId).orElseThrow(CustomerNotFoundException::new));
-        return userTransformerUtility.employeeEntityToEmployeeDTO(employeeOptional.get());
+        return userTransformerUtility.employeeEntityToEmployeeDTO(findEntityById(employeeId));
     }
+
+    public Employee findEntityById(long employeeId) {
+        Optional<Employee> employeeOptional = Optional.ofNullable(employeeRepository.findById(employeeId)).orElseThrow(CustomerNotFoundException::new);
+        return employeeOptional.get();
+    }
+
 }
