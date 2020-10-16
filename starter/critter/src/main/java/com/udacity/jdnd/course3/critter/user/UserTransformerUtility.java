@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public final class UserTransformerUtility {
@@ -20,6 +22,13 @@ public final class UserTransformerUtility {
         BeanUtils.copyProperties(customer, dto);
         // to set dto petIds I need a list of Long
         // we will do this if there has been any pets set
+        if(customer.getPets() != null) {
+            dto.setPetIds(customer.getPets()
+                    .stream()
+                    .filter(Objects::nonNull)
+                    .map(pet -> pet.getId())
+                    .collect(Collectors.toList()));
+        }
         return dto;
     }
 
