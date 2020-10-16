@@ -39,7 +39,7 @@ public class Pet {
     @Column(length = 500)
     private String notes;
 
-    @OneToMany(mappedBy = "pet")
+    @ManyToMany(mappedBy = "pet")
     private List<Schedule> schedule;
 
 }
