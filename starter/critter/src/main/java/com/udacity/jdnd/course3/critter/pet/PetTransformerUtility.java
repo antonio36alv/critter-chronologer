@@ -1,20 +1,13 @@
 package com.udacity.jdnd.course3.critter.pet;
 
-import com.udacity.jdnd.course3.critter.user.Customer;
-import lombok.experimental.UtilityClass;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//@UtilityClass
 @Component
 final class PetTransformerUtility {
-
-//    private PetTransformerUtility() {
-//        throw new UnsupportedOperationException();
-//    }
 
     /**
      Pet DTO -> Pet Entity
@@ -39,7 +32,7 @@ final class PetTransformerUtility {
      *
      List of Pets -> List of Pet DTOs
      Takes a list of pets and converts it to a list of petDTOs
-     with the help of the convertPet method above
+     with the help of the petEntityToPetDTO method above
      */
     public List<PetDTO> convertToPetDTOList(List<Pet> petList) {
         List<PetDTO> dtoList = new ArrayList<>();
