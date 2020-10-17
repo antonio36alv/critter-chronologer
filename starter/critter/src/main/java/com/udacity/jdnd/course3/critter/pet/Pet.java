@@ -10,14 +10,12 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
-//@NoArgsConstructor
-//@RequiredArgsConstructor
 @Entity
 @Data
 public class Pet {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 50)
@@ -39,7 +37,7 @@ public class Pet {
     @Column(length = 500)
     private String notes;
 
-    @ManyToMany(mappedBy = "pet")
+    @ManyToMany
     private List<Schedule> schedule;
 
 }
