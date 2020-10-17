@@ -8,4 +8,10 @@ public interface ScheduleService {
 
     List<ScheduleDTO> findAll();
 
+    List<ScheduleDTO> findAllByPetsId(long petId);
+
+    List<ScheduleDTO> findAllByEmployeesId(long employeeId);
+
+    List<ScheduleDTO> findAllByCustomerId(long customerId);
+    
 }
