@@ -6,4 +6,5 @@ public interface EmployeeService {
 
     EmployeeDTO findById(long employeeId);
 
+    Employee findEntityById(long employeeId);
 }
