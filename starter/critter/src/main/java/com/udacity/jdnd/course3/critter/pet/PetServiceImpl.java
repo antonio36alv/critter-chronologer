@@ -1,31 +1,25 @@
 package com.udacity.jdnd.course3.critter.pet;
 
 import com.udacity.jdnd.course3.critter.user.Customer;
-import com.udacity.jdnd.course3.critter.user.CustomerRepository;
 import com.udacity.jdnd.course3.critter.user.CustomerService;
-import com.udacity.jdnd.course3.critter.user.UserTransformerUtility;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class PetServiceImpl implements PetService{
 
     @Autowired
     private PetRepository petRepository;
     @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
     private CustomerService customerService;
     @Autowired
     private PetTransformerUtility petTransformer;
-    @Autowired
-    private UserTransformerUtility userTransformer;
 
     @Override
     public PetDTO findById(long id) {
@@ -35,7 +29,6 @@ public class PetServiceImpl implements PetService{
 
     @Override
     public List<PetDTO> findAll() {
-//        return petRepository.findAll();
         return petTransformer.convertToPetDTOList(petRepository.findAll());
     }
 
@@ -49,12 +42,24 @@ public class PetServiceImpl implements PetService{
         // convert dto into a pet
         Pet pet = petTransformer.petDTOtoPetEntity(petDTO);
         // find customer that the pet belongs to (using owner id from dto)
-        // and set the pets customer field to the returned customer
         Customer customer = customerService.findEntityById(petDTO.getOwnerId());
+        // then set the pets customer field to the customer returned previously
         pet.setCustomer(customer);
-        // save our pet entity then
-        // convert back to dto for response
-        return petTransformer.petEntityToPetDTO(petRepository.save(pet));
+        // save pet and store it as a new pet, refrenced by savedPet
+        Pet savedPet = petRepository.save(pet);
+        // if our customer.getPets is not null we simply add savedPet to existing pets
+        // otherwise create a new petList, add pet to that list, set customers petList
+        // to the new petList, this seems unneccessary but it's the only way the tests
+        // pass
+        if(customer.getPets() != null) {
+            customer.getPets().add(savedPet);
+        } else {
+            List<Pet> pets = new ArrayList<>();
+            pets.add(savedPet);
+            customer.setPets(pets);
+        }
+        // convert saved pet entity to a petDTO and return
+        return petTransformer.petEntityToPetDTO(savedPet);
     }
 
 }
