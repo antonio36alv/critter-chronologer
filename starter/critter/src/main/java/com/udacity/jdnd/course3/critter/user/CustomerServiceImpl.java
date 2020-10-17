@@ -18,8 +18,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO findById(Long id) {
+        return userTransformer.customerEntityToCustomerDTO(findEntityById(id));
+    }
+
+    @Override
+    public Customer findEntityById(Long id) {
         Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new));
-        return userTransformer.customerEntityToCustomerDTO(customer.get());
+        return customer.get();
     }
 
     @Override

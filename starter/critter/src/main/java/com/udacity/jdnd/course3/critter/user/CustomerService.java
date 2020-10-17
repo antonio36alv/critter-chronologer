@@ -6,6 +6,8 @@ public interface CustomerService {
 
     CustomerDTO findById(Long id);
 
+    Customer findEntityById(Long id);
+
     List<CustomerDTO> findAll();
 
     CustomerDTO save(CustomerDTO customerDTO);
