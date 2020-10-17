@@ -4,9 +4,12 @@ import com.udacity.jdnd.course3.critter.user.Customer;
 import com.udacity.jdnd.course3.critter.user.CustomerRepository;
 import com.udacity.jdnd.course3.critter.user.CustomerService;
 import com.udacity.jdnd.course3.critter.user.UserTransformerUtility;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,10 +50,7 @@ public class PetServiceImpl implements PetService{
         Pet pet = petTransformer.petDTOtoPetEntity(petDTO);
         // find customer that the pet belongs to (using owner id from dto)
         // and set the pets customer field to the returned customer
-//        pet.setCustomer(customerService.findById(petDTO.getOwnerId()));
-//        Customer customer = customerService.findById(petDTO.getOwnerId());
-        Customer customer = userTransformer.customerDTOtoCustomerEntity(customerService.findById(petDTO.getOwnerId()));
-//        pet.setCustomer(customerRepository.findById(petDTO.getOwnerId()));
+        Customer customer = customerService.findEntityById(petDTO.getOwnerId());
         pet.setCustomer(customer);
         // save our pet entity then
         // convert back to dto for response
