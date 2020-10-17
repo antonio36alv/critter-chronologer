@@ -36,15 +36,13 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = userTransformer.customerDTOtoCustomerEntity(customerDTO);
         // within customer we have a pet list
         // so we should
-//        customer.getPet().forEach(pet -> pet.setCustomer(customer));
-//        return customerRepository.save(customer);
         return userTransformer
                     .customerEntityToCustomerDTO(customerRepository.save(customer));
     }
 
     @Override
-    public CustomerDTO findCustomerByPetId(long petId) {
-//        return userTransformer.customerEntityToCustomerDTO(customerRepository.findCustomerByPetId(petId));
-        return null;
+    public CustomerDTO findByPetsId(long petId) {
+        Customer customer = customerRepository.findByPetsId(petId);
+        return userTransformer.customerEntityToCustomerDTO(customer);
     }
 }

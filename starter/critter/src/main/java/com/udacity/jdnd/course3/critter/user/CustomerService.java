@@ -10,4 +10,6 @@ public interface CustomerService {
 
     CustomerDTO save(CustomerDTO customerDTO);
 
+    CustomerDTO findByPetsId(long petId);
+
 }
