@@ -53,6 +53,9 @@ public final class UserTransformerUtility {
     public EmployeeDTO employeeEntityToEmployeeDTO(Employee employee) {
         EmployeeDTO dto = new EmployeeDTO();
         BeanUtils.copyProperties(employee, dto);
+        if(employee.getAvailability() != null) {
+            dto.setDaysAvailable(employee.getAvailability());
+        }
         return dto;
     }
 

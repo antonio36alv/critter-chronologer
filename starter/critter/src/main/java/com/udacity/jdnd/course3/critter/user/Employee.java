@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Set;
 
@@ -18,5 +19,8 @@ public class Employee extends User {
 
     @ManyToMany
     private List<Schedule> schedule;
+
+    @ElementCollection(targetClass = DayOfWeek.class)
+    private Set<DayOfWeek> availability;
 
 }

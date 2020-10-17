@@ -3,7 +3,9 @@ package com.udacity.jdnd.course3.critter.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -27,6 +29,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee findEntityById(long employeeId) {
         Optional<Employee> employeeOptional = Optional.ofNullable(employeeRepository.findById(employeeId)).orElseThrow(CustomerNotFoundException::new);
         return employeeOptional.get();
+    }
+
+    @Override
+    public void setAvailability(Set<DayOfWeek> daysAvailable, long employeeId) {
+        Employee employee = findEntityById(employeeId);
+        employee.setAvailability(daysAvailable);
     }
 
 }
