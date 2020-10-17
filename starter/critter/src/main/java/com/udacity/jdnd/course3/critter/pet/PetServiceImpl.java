@@ -24,7 +24,12 @@ public class PetServiceImpl implements PetService{
     @Override
     public PetDTO findById(long id) {
         Optional<Pet> petOptional = Optional.ofNullable(petRepository.findById(id).orElseThrow(PetNotFoundException::new));
-        return petTransformer.petEntityToPetDTO(petOptional.get());
+        return petTransformer.petEntityToPetDTO(findEntityById(id));
+    }
+
+    public Pet findEntityById(long id) {
+        Optional<Pet> petOptional = Optional.ofNullable(petRepository.findById(id).orElseThrow(PetNotFoundException::new));
+        return petOptional.get();
     }
 
     @Override
@@ -49,7 +54,7 @@ public class PetServiceImpl implements PetService{
         Pet savedPet = petRepository.save(pet);
         // if our customer.getPets is not null we simply add savedPet to existing pets
         // otherwise create a new petList, add pet to that list, set customers petList
-        // to the new petList, this seems unneccessary but it's the only way the tests
+        // to the new petList, this seems unnecessary but it's the only way the tests
         // pass
         if(customer.getPets() != null) {
             customer.getPets().add(savedPet);
@@ -58,6 +63,7 @@ public class PetServiceImpl implements PetService{
             pets.add(savedPet);
             customer.setPets(pets);
         }
+        savedPet.setSchedule(new ArrayList<>());
         // convert saved pet entity to a petDTO and return
         return petTransformer.petEntityToPetDTO(savedPet);
     }
