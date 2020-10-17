@@ -22,13 +22,17 @@ public final class UserTransformerUtility {
         BeanUtils.copyProperties(customer, dto);
         // to set dto petIds I need a list of Long
         // we will do this if there has been any pets set
+        List<Long> petIds;
         if(customer.getPets() != null) {
-            dto.setPetIds(customer.getPets()
+            petIds = customer.getPets()
                     .stream()
                     .filter(Objects::nonNull)
                     .map(pet -> pet.getId())
-                    .collect(Collectors.toList()));
+                    .collect(Collectors.toList());
+        } else {
+            petIds = new ArrayList<>();
         }
+        dto.setPetIds(petIds);
         return dto;
     }
 
