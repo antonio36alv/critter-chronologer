@@ -6,11 +6,13 @@ import com.udacity.jdnd.course3.critter.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired

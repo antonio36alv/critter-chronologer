@@ -23,7 +23,6 @@ public class PetServiceImpl implements PetService{
 
     @Override
     public PetDTO findById(long id) {
-        Optional<Pet> petOptional = Optional.ofNullable(petRepository.findById(id).orElseThrow(PetNotFoundException::new));
         return petTransformer.petEntityToPetDTO(findEntityById(id));
     }
 
@@ -50,7 +49,7 @@ public class PetServiceImpl implements PetService{
         Customer customer = customerService.findEntityById(petDTO.getOwnerId());
         // then set the pets customer field to the customer returned previously
         pet.setCustomer(customer);
-        // save pet and store it as a new pet, refrenced by savedPet
+        // save pet and store it as a new pet, referenced by savedPet
         Pet savedPet = petRepository.save(pet);
         // if our customer.getPets is not null we simply add savedPet to existing pets
         // otherwise create a new petList, add pet to that list, set customers petList
