@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -35,6 +38,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void setAvailability(Set<DayOfWeek> daysAvailable, long employeeId) {
         Employee employee = findEntityById(employeeId);
         employee.setAvailability(daysAvailable);
+    }
+
+    @Override
+    public List<EmployeeDTO> findAllBySkillsIn(EmployeeRequestDTO employeeDTO) {
+
+        List<Employee> employeeList = employeeRepository.findAllByAvailability(employeeDTO.getDate().getDayOfWeek());
+
+        List<Employee> coolEmployees = employeeList
+                        .stream()
+                        .filter(employee -> employee.getSkills() != null &&
+                                            employee.getSkills()
+                                                .containsAll(employeeDTO.getSkills()))
+                                                .collect(Collectors.toList());
+        return userTransformerUtility.convertToEmployeeDTOList(coolEmployees);
     }
 
 }
